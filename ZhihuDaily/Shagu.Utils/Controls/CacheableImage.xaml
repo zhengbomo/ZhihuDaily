@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Shagu.Utils.Controls.CacheableImage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="_this"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+
+    <Grid>
+
+        <Image x:Name="mainImage"
+           Width="{Binding ElementName=_this,
+                           Path=Width}"
+           Height="{Binding ElementName=_this,
+                            Path=Height}"
+           HorizontalAlignment="{Binding ElementName=_this,
+                                         Path=HorizontalAlignment}"
+           VerticalAlignment="{Binding ElementName=_this,
+                                       Path=VerticalAlignment}"
+           Stretch="{Binding ElementName=_this,
+                             Path=Stretch}"/>
+        
+        <Rectangle Fill="#33000000"
+                   x:Name="maskRect" Visibility="Collapsed"/>
+
+    </Grid>
+        
+</UserControl>

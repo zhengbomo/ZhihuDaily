@@ -1,0 +1,101 @@
+﻿<Page
+    x:Class="ZhihuDaily.Views.WebViewArticleView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZhihuDaily.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance local:WebViewArticleViewModel,
+                                       IsDesignTimeCreatable=True}"
+     
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainAccessBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Style="{StaticResource AppTitleTextBlockStyle}"
+                       Text="{Binding ArticleInfo.Title}" />
+
+                <CommandBar Grid.Column="1" ClosedDisplayMode="Compact"
+                        Background="{ThemeResource MainAccessBrush}"
+                        CommandBarOverflowPresenterStyle="{StaticResource CommandBarOverflowPresenterStyle}"
+                        Foreground="White"
+                        IsEnabled="{Binding CountLoaded}">
+
+                    <AppBarButton Label="{Binding CounterList.IsVoted,
+                                                  Converter={StaticResource ZhihuDailyConverter},
+                                                  ConverterParameter='like_text'}"
+                              RequestedTheme="Dark"
+                              Foreground="{Binding CounterList.IsVoted,
+                                                  Converter={StaticResource ZhihuDailyConverter},
+                                                  ConverterParameter='favorite_icon_brush'}"
+                              Icon="Like"
+                              micro:Message.Attach="[Click] = [Like]" />
+
+                    <AppBarButton Label="{Binding CounterList.Favorite,
+                                                  Converter={StaticResource ZhihuDailyConverter},
+                                                  ConverterParameter='favorite_text'}"
+                              RequestedTheme="Dark"
+                              Foreground="{Binding CounterList.Favorite,
+                                                  Converter={StaticResource ZhihuDailyConverter},
+                                                  ConverterParameter='favorite_icon_brush'}"
+                              Icon="Favorite"
+                              micro:Message.Attach="[Click] = [Collect]" />
+
+
+                    <AppBarButton Icon="Comment"
+                              Label="写点评"
+                              RequestedTheme="Dark"
+                              micro:Message.Attach="[Click] = [Nav2CommmentView]" />
+
+
+                    <CommandBar.SecondaryCommands>
+                        <AppBarButton Label="刷新"
+                                  RequestedTheme="Dark"
+                                  micro:Message.Attach="[Click] = [RequestArticle]" />
+                        <!--                    <AppBarButton Label="{Binding CounterList.Favorite,-->
+                        <!--                                                  Converter={StaticResource ZhihuDailyConverter},-->
+                        <!--                                                  ConverterParameter='favorite_text'}"-->
+                        <!--                                  RequestedTheme="Dark"-->
+                        <!--                                  micro:Message.Attach="[Click] = [Collect]" />-->
+                        <AppBarButton Label="{Binding Source={StaticResource GlobalInfoManager},
+                                                  Path=IsNightMode,
+                                                  Converter={StaticResource ZhihuDailyConverter},
+                                                  ConverterParameter='nightMode_text'}"
+                                  RequestedTheme="Dark"
+                                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                                  micro:Message.Attach="[Click] = [ChangeNightmode]" />
+
+                    </CommandBar.SecondaryCommands>
+                </CommandBar>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{ThemeResource MainBackgroundBrush}">
+            <WebView x:Name="webView" x:FieldModifier="public" Source="{Binding ArticleInfo.ShareUrl}"
+                     NavigationCompleted="WebView_OnNavigationCompleted" NavigationStarting="WebView_OnNavigationStarting"/>
+
+            <ProgressRing x:Name="progressRing" Visibility="Collapsed"
+                          IsActive="True" Width="80" Height="80"
+                          ></ProgressRing>
+        </Grid>
+
+        
+
+    </Grid>
+</Page>

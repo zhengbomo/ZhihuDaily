@@ -1,0 +1,101 @@
+﻿<Page x:Class="ZhihuDaily.Views.UserInfoView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls1="using:Shagu.Utils.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      NavigationCacheMode="Enabled"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:UserInfoViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Height="48"
+                    Background="{ThemeResource MainAccessBrush}"
+                    Orientation="Horizontal">
+            <TextBlock Margin="60,0,0,0"
+                       Foreground="{ThemeResource MainIconForeground}"
+                       Style="{StaticResource AppTitleTextBlockStyle}"
+                       Text="个人设置" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <StackPanel VerticalAlignment="Center">
+
+                <Grid>
+                    <controls1:CacheableImage Width="100"
+                                              Height="100"
+                                              HorizontalAlignment="Center"
+                                              DefaultImageUri="/Assets/Images/User/user_avatar_default.jpg"
+                                              ImageUrl="{Binding Icon}"
+                                              IsNightMode="{Binding Source={StaticResource GlobalInfoManager},
+                                                                    Path=IsNightMode}"
+                                              Stretch="Uniform"
+                                              Visibility="{Binding NewImage,
+                                                                   Converter={StaticResource VisibilityConverter},
+                                                                   ConverterParameter='null'}" />
+                </Grid>
+
+                <Button Style="{StaticResource ClearButtonStyle}" micro:Message.Attach="[Click]=[ChangeAvatar]"
+                        Width="100">
+                    <Border Margin="8" Background="{ThemeResource MainAccessBrush}" CornerRadius="20">
+                        <TextBlock Margin="8"
+                                   FontSize="14"
+                                   Foreground="White"
+                                   Text="更换头像"
+                                   TextAlignment="Center" />
+                    </Border>
+                </Button>
+
+
+                <TextBox Width="280"
+                         Margin="8"
+                         BorderThickness="0,0,0,1"
+                         BorderBrush="{ThemeResource MainAccessBrush}"
+                         Style="{StaticResource ClearTextBoxStyle}"
+                         Header="昵称: "
+                         Foreground="Black"
+                         Background="White"
+                         IsSpellCheckEnabled="False"
+                         PlaceholderText="请输入昵称"
+                         Text="{Binding UserName,
+                                        Mode=TwoWay}" />
+
+                <Button Width="300"
+                        Style="{StaticResource ClearButtonStyle}"
+                        micro:Message.Attach="[Click] = [SaveName]">
+                    <Border Margin="8" Background="{ThemeResource MainAccessBrush}">
+                        <TextBlock Margin="8"
+                                   FontSize="16"
+                                   Foreground="White"
+                                   Text="保存"
+                                   TextAlignment="Center" />
+                    </Border>
+                </Button>
+
+                <Button Width="300"
+                        Style="{StaticResource ClearButtonStyle}"
+                        micro:Message.Attach="[Click] = [Logout]">
+                    <Border Margin="8" Background="{ThemeResource RedBackgroundBrush}">
+                        <TextBlock Margin="8"
+                                   FontSize="16"
+                                   Foreground="White"
+                                   Text="登出"
+                                   TextAlignment="Center" />
+                    </Border>
+                </Button>
+            </StackPanel>
+
+
+        </Grid>
+
+    </Grid>
+</Page>

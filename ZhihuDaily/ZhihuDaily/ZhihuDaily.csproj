@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{B97F09BC-3D06-4F0D-90C3-CAF002B9885B}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZhihuDaily</RootNamespace>
+    <AssemblyName>ZhihuDaily</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>ZhihuDaily_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Never</AppxBundle>
+    <PackageCertificateThumbprint>8BDB987BDF018462C3D3174799E4E24F28795D58</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\OpenFlyoutAction.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AdControl.xaml.cs">
+      <DependentUpon>AdControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ArticleView.xaml.cs">
+      <DependentUpon>ArticleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AvatarControl.xaml.cs">
+      <DependentUpon>AvatarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CategoryListView.xaml.cs">
+      <DependentUpon>CategoryListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClickableCacheableImage.xaml.cs">
+      <DependentUpon>ClickableCacheableImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtendedSplash.xaml.cs">
+      <DependentUpon>ExtendedSplash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadMoreControl.xaml.cs">
+      <DependentUpon>LoadMoreControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TemplateToggleButton.xaml.cs">
+      <DependentUpon>TemplateToggleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ZhihuDailyConverter.cs" />
+    <Compile Include="Models\ArticleParagraph.cs" />
+    <Compile Include="Models\AvatarInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ArticleHelper.cs" />
+    <Compile Include="Utils\ArticleHelperBase.cs" />
+    <Compile Include="Utils\AuthHelper.cs" />
+    <Compile Include="Utils\DesktopFrameManager.cs" />
+    <Compile Include="Utils\IReloadListVM.cs" />
+    <Compile Include="Utils\MobileFrameManager.cs" />
+    <Compile Include="Util\ArticleParagraphTemplateSelector.cs" />
+    <Compile Include="Util\DeviceAdaptiveTrigger.cs" />
+    <Compile Include="Util\GlobalInfoManager.cs" />
+    <Compile Include="Util\GlobalResources.cs" />
+    <Compile Include="Util\NavigationManager.cs" />
+    <Compile Include="Util\RequestUtil.cs" />
+    <Compile Include="ViewModels\ArticleCollectionViewModel.cs" />
+    <Compile Include="ViewModels\ArticleDetailViewModel.cs" />
+    <Compile Include="ViewModels\CategoryDetailViewModel.cs" />
+    <Compile Include="ViewModels\CommentListViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainAboutViewModel.cs" />
+    <Compile Include="ViewModels\MainHomeViewModel.cs" />
+    <Compile Include="ViewModels\MainSettingViewModel.cs" />
+    <Compile Include="ViewModels\MainShellViewModel.cs" />
+    <Compile Include="ViewModels\NewCollectionViewModel.cs" />
+    <Compile Include="ViewModels\PublichCommentViewModel.cs" />
+    <Compile Include="ViewModels\RecommendAppViewModel.cs" />
+    <Compile Include="ViewModels\RightPlaceholdViewModel.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="ViewModels\WebBrowserViewModel.cs" />
+    <Compile Include="Controls\CropImageView.xaml.cs">
+      <DependentUpon>CropImageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommentListView.xaml.cs">
+      <DependentUpon>CommentListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewCollectionView.xaml.cs">
+      <DependentUpon>NewCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PublichCommentView.xaml.cs">
+      <DependentUpon>PublichCommentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserInfoView.xaml.cs">
+      <DependentUpon>UserInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WebViewArticleView.xaml.cs">
+      <DependentUpon>WebViewArticleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebViewArticleViewModel.cs" />
+    <Compile Include="Views\ArticleCollectionView.xaml.cs">
+      <DependentUpon>ArticleCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArticleDetailView.xaml.cs">
+      <DependentUpon>ArticleDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryDetailView.xaml.cs">
+      <DependentUpon>CategoryDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainAboutView.xaml.cs">
+      <DependentUpon>MainAboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainHomeView.xaml.cs">
+      <DependentUpon>MainHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainSettingView.xaml.cs">
+      <DependentUpon>MainSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainShellView.xaml.cs">
+      <DependentUpon>MainShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecommendAppView.xaml.cs">
+      <DependentUpon>RecommendAppView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RightPlaceholdView.xaml.cs">
+      <DependentUpon>RightPlaceholdView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestView.xaml.cs">
+      <DependentUpon>TestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WebBrowserView.xaml.cs">
+      <DependentUpon>WebBrowserView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="ZhihuDaily_StoreKey.pfx" />
+    <None Include="ZhihuDaily_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Html\article_page.html" />
+    <Content Include="Assets\Images\default_category_coverImage.jpg" />
+    <Content Include="Assets\Images\default_image.png" />
+    <Content Include="Assets\Images\Icons\comment_unlike.png" />
+    <Content Include="Assets\Images\Icons\comment_like.png" />
+    <Content Include="Assets\Images\Icons\icon_mutible_image.png" />
+    <Content Include="Assets\Images\Icons\icon_play.png" />
+    <Content Include="Assets\Images\list_default_image.png" />
+    <Content Include="Assets\Images\Logo.png" />
+    <Content Include="Assets\Images\Others\alipay_logo.png" />
+    <Content Include="Assets\Images\splash_logo.png" />
+    <Content Include="Assets\Images\User\user_avatar_default.jpg" />
+    <Content Include="Assets\Tile\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\Tile\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\Tile\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\Tile\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\Tile\BadgeLogo.scale-240.png" />
+    <Content Include="Assets\Tile\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\Tile\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\Tile\Logo.scale-240.png" />
+    <Content Include="Assets\Tile\logo_large.png" />
+    <Content Include="Assets\Tile\OriginLogo.scale-240.png" />
+    <Content Include="Assets\Tile\SmallLogo.scale-240.png" />
+    <Content Include="Assets\Tile\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Tile\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Tile\SplashScreen.scale-240.png" />
+    <Content Include="Assets\Tile\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Tile\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Tile\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Tile\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Tile\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Tile\Square310x310Logo.scale-200.png" />
+    <Content Include="Assets\Tile\Square310x310Logo.scale-400.png" />
+    <Content Include="Assets\Tile\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Tile\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Tile\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Tile\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\Tile\Square44x44Logo.targetsize-256_altform-unplated.png" />
+    <Content Include="Assets\Tile\Square44x44Logo.targetsize-48_altform-unplated.png" />
+    <Content Include="Assets\Tile\Square71x71Logo.scale-100.png" />
+    <Content Include="Assets\Tile\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\Tile\Square71x71Logo.scale-240.png" />
+    <Content Include="Assets\Tile\Square71x71Logo.scale-400.png" />
+    <Content Include="Assets\Tile\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Tile\StoreLogo.scale-125.png" />
+    <Content Include="Assets\Tile\StoreLogo.scale-150.png" />
+    <Content Include="Assets\Tile\StoreLogo.scale-200.png" />
+    <Content Include="Assets\Tile\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Tile\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Tile\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Tile\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Tile\WideLogo.scale-240.png" />
+    <None Include="Package.StoreAssociation.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\AdControl.DeviceFamily-Mobile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AdControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ArticleView.DeviceFamily-Mobile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ArticleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\AvatarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CategoryListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ClickableCacheableImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ExtendedSplash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LoadMoreControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TemplateToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\CommonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TemplateResources.DeviceFamily-Mobile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TemplateResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CropImageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ArticleDetailView.DeviceFamily-Mobile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommentListView.DeviceFamily-Mobile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommentListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PublichCommentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WebViewArticleView.DeviceFamily-Mobile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WebViewArticleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArticleCollectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ArticleDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CategoryDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainAboutView.DeviceFamily-Mobile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainAboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainShellView.DeviceFamily-Mobile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RecommendAppView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RightPlaceholdView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TestView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WebBrowserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Caliburn.Micro\Caliburn.Micro.Platform.UWP\Caliburn.Micro.Platform.UWP.csproj">
+      <Project>{94d9a9c6-44c1-4e5a-877b-5761c963b2f6}</Project>
+      <Name>Caliburn.Micro.Platform.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Caliburn.Micro\Caliburn.Micro\Caliburn.Micro.csproj">
+      <Project>{6d772b52-da8f-4784-971a-4bf50cb6d306}</Project>
+      <Name>Caliburn.Micro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shagu.Controls\Shagu.Controls.csproj">
+      <Project>{29b671c9-302c-4014-a55c-e8e725c2ab47}</Project>
+      <Name>Shagu.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shagu.UI\Shagu.UI.csproj">
+      <Project>{eaf6ec7b-39d2-4a16-b3c9-b64bd28e12c2}</Project>
+      <Name>Shagu.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shagu.Utils\Shagu.Utils.csproj">
+      <Project>{7a21d812-3f29-4553-a629-e1c81901f50b}</Project>
+      <Name>Shagu.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shagu.Weibo\Shagu.Weibo.csproj">
+      <Project>{E6783ABD-7BB8-4868-A1CD-5AC4A9AF9FBE}</Project>
+      <Name>Shagu.Weibo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamlBrewer.Uwp.Controls\XamlBrewer.Uwp.Controls.csproj">
+      <Project>{e16843f7-d823-4601-8e42-77abe2a4463b}</Project>
+      <Name>XamlBrewer.Uwp.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZhihuDaily.Domain\ZhihuDaily.Domain.csproj">
+      <Project>{45bdae79-0dcb-46dd-a48a-74bc9b8f2982}</Project>
+      <Name>ZhihuDaily.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.AdMediator.Universal, Version=1.0">
+      <Name>Microsoft Advertising Universal SDK</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.12.2">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsDesktop, Version=10.0.10586.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Common\" />
+    <Folder Include="Views\Common\" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

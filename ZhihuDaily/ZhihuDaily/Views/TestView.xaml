@@ -1,0 +1,20 @@
+﻿<Page x:Class="ZhihuDaily.Views.TestView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:ZhihuDaily.Controls"
+      xmlns:controls1="using:Shagu.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      xmlns:micro="using:Caliburn.Micro"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:TestViewModel,
+                                       IsDesignTimeCreatable=True}"
+      d:DesignHeight="1500"
+      mc:Ignorable="d">
+
+    <Grid Background="White">
+        <Image Source="http://www.zhihu.com/equation?tex=%5Cfrac%7Be_%7Bs%2Ca%7D%7D%7Be_%7Bs%2C%5Cinfty+%7D%7D+%3D1%2B%5Cfrac%7BA%7D%7Ba%7D+-%5Cfrac%7BB%7D%7Ba%5E%7B3%7D%7D"/>
+    </Grid>
+</Page>

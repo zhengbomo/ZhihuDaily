@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="ZhihuDaily.Controls.CropImageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:XamlBrewer.Uwp.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:Pianke.Views.Common"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="_this"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Storyboard x:Name="PopInStoryboard">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="_this" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <PopInThemeAnimation FromVerticalOffset="500" Storyboard.TargetName="LayoutRoot" />
+        </Storyboard>
+        <Storyboard x:Name="PopOutStoryboard" Completed="PopOutStoryboard_OnCompleted">
+            <PopOutThemeAnimation Storyboard.TargetName="LayoutRoot" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="#FF000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ImageCropper.(Grid.Row)" Value="0" />
+                        <Setter Target="CroppedImage.(Grid.Row)" Value="0" />
+                        <Setter Target="ImageCropper.(Grid.Column)" Value="0" />
+                        <Setter Target="CroppedImage.(Grid.Column)" Value="1" />
+
+                        <Setter Target="ImageCropper.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="CroppedImage.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="ImageCropper.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="CroppedImage.(Grid.ColumnSpan)" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ImageCropper.(Grid.Row)" Value="0" />
+                        <Setter Target="CroppedImage.(Grid.Row)" Value="1" />
+                        <Setter Target="ImageCropper.(Grid.Column)" Value="0" />
+                        <Setter Target="CroppedImage.(Grid.Column)" Value="0" />
+
+                        <Setter Target="ImageCropper.(Grid.RowSpan)" Value="1" />
+                        <Setter Target="CroppedImage.(Grid.RowSpan)" Value="1" />
+                        <Setter Target="ImageCropper.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="CroppedImage.(Grid.ColumnSpan)" Value="2" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid Height="48">
+            <TextBlock FontWeight="Normal"
+                       Foreground="White"
+                       Style="{StaticResource AppTitleTextBlockStyle}"
+                       Text="裁切图片" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+
+            <controls:ImageCropper x:Name="ImageCropper"
+                                   Margin="8"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch" />
+
+            <Image x:Name="CroppedImage"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Margin="8"
+                   Source="{Binding CroppedImage,
+                                    ElementName=ImageCropper}" />
+
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Margin="8"
+                    HorizontalAlignment="Left"
+                    Click="CloseButton_OnClick"
+                    Style="{StaticResource ClearButtonStyle}">
+                <Border Width="50"
+                        Height="50"
+                        Background="{ThemeResource MainAccessBrush}">
+                    <SymbolIcon Foreground="White" Symbol="Clear" />
+                </Border>
+            </Button>
+
+            <Button Grid.Column="2"
+                    Margin="8"
+                    Click="OkButton_OnClick"
+                    Style="{StaticResource ClearButtonStyle}">
+                <Border Width="50"
+                        Height="50"
+                        Background="{ThemeResource MainAccessBrush}">
+                    <SymbolIcon Foreground="White" Symbol="Accept" />
+                </Border>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

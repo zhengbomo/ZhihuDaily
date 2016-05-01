@@ -1,0 +1,65 @@
+﻿<Page x:Class="ZhihuDaily.Views.ArticleCollectionView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      xmlns:micro="using:Caliburn.Micro"
+      NavigationCacheMode="Enabled"
+      xmlns:controls1="using:ZhihuDaily.Controls"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager}, Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:ArticleCollectionViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainAccessBrush}">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid  Background="{ThemeResource MainAccessBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Orientation="Horizontal" Height="48">
+                <!--            <ToggleButton         VerticalContentAlignment="Center"-->
+                <!--                                  Content="&#xE700;"-->
+                <!--                                  Foreground="{ThemeResource MainIconForeground}"-->
+                <!--                                  IsChecked="False"-->
+                <!--                                  Style="{StaticResource IconToggleButtonStyle}" />-->
+                <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Margin="60,0,0,0"
+                               Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="本地收藏" />
+            </StackPanel>
+            
+            <AppBarButton Grid.Column="1" Icon="Refresh" Height="48" VerticalAlignment="Center" RequestedTheme="Dark"
+                          micro:Message.Attach="[Click] = [RequestItems]"/>
+        </Grid>
+        
+
+        <ListView Grid.Row="1" IsItemClickEnabled="True"
+                  Header="{Binding Articles}"
+              ShowsScrollingPlaceholders="False"
+                  Background="{ThemeResource MainBackgroundBrush}"
+                  HeaderTemplate="{StaticResource ListProcressHeaderTemplate}"
+                  ItemContainerStyle="{StaticResource CommonListViewItemStyle}"
+                  ItemTemplate="{StaticResource StoryInfoTemplate}"
+                  ItemsSource="{Binding Articles}"
+                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                  micro:Message.Attach="[ItemClick] = [ItemClick($eventArgs)]">
+
+            <ListView.Footer>
+                <Grid>
+                    <controls1:LoadMoreControl Margin="12,0"
+                                              DataContext="{Binding Articles}"
+                                              micro:Message.Attach="[LoadMore]=[LoadItems]" />
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+    </Grid>
+</Page>

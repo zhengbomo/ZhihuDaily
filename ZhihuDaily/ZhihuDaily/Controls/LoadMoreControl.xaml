@@ -1,0 +1,34 @@
+﻿<UserControl
+    x:Class="ZhihuDaily.Controls.LoadMoreControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="60"
+    d:DesignWidth="400">
+
+    <Grid Margin="8,3,8,8" Visibility="{Binding IsShowHasMore, Converter={StaticResource VisibilityConverter}, ConverterParameter='bool'}">
+        <Grid Visibility="{Binding HasMore, Converter={StaticResource VisibilityConverter}, ConverterParameter='bool'}">
+            <Grid Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}, ConverterParameter='boolreverse'}">
+                <Button Background="{ThemeResource MainAccessBrush}"
+                    Click="LoadMoreButton_OnClick"
+                    Content="点击加载更多"
+                    Foreground="White"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                    Height="45"
+                        Margin="0,8"
+                    Style="{StaticResource ClearButtonStyle}" />
+            </Grid>
+            <Grid Height="60" Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}, ConverterParameter='bool'}">
+                <ProgressRing IsActive="True"
+                          VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+
+        <Grid Height="60" Visibility="{Binding HasMore, Converter={StaticResource VisibilityConverter}, ConverterParameter='boolreverse'}">
+            <TextBlock Text="没有了~" FontSize="16" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</UserControl>

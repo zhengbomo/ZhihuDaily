@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Shagu.Utils.Controls.LoadingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="_this"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             d:DesignHeight="300"
+             Visibility="Collapsed"
+             d:DesignWidth="400"
+             mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <Storyboard x:Name="PopInStoryboard">
+            <FadeInThemeAnimation Storyboard.TargetName="_this" Duration="0:0:0.25"/>
+        </Storyboard>
+        <Storyboard x:Name="PopOutStoryboard" Completed="PopOutStoryboard_OnCompleted">
+            <FadeOutThemeAnimation Storyboard.TargetName="_this" Duration="0:0:0.25"/>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Grid Background="#99000000" x:Name="LayoutRoot">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ProgressRing Width="100"
+                          Height="100"
+                          IsActive="True" />
+            <TextBlock Margin="5"
+                       FontSize="18"
+                       Foreground="White"
+                       Text="{Binding ElementName=_this,
+                                      Path=Title}"
+                       TextAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>

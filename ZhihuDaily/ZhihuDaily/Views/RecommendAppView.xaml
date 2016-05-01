@@ -1,0 +1,76 @@
+﻿<Page x:Class="ZhihuDaily.Views.RecommendAppView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animate="using:Brain.Animate"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      xmlns:controls="using:Shagu.Utils.Controls"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager}, Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:RecommendAppViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+
+    <Grid  Background="{ThemeResource MainAccessBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Height="48" Background="{ThemeResource MainAccessBrush}">
+            <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Margin="17,0,0,0"
+                               Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="推荐应用" />
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              Background="{ThemeResource MainBackgroundBrush}">
+            <ListView IsItemClickEnabled="True"
+              ShowsScrollingPlaceholders="False"
+                      ItemContainerStyle="{StaticResource CommonListViewItemStyle}"
+                      ItemsSource="{Binding Items}"
+                      micro:Message.Attach="[ItemClick] = [ItemClick($eventArgs)]">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid Margin="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Height="80"
+                                        Margin="8"
+                                        Background="{ThemeResource MainAccessBrush}">
+                                    <controls:CacheableImage Width="80"
+                                                             Height="80"
+                                                             Stretch="UniformToFill"
+                                                             DefaultImageUri="/Assets/Images/default_square_image.png"
+                                                             ImageUrl="{Binding Icon}" />
+                                </Border>
+
+
+                                <StackPanel Grid.Column="1" Margin="8">
+                                    <TextBlock FontSize="20"
+                                               Foreground="{ThemeResource TextColorBrush}"
+                                               Text="{Binding Name}" />
+                                    <TextBlock MaxHeight="50"
+                                               FontSize="16"
+                                               Foreground="{ThemeResource TextSubColorBrush}"
+                                               Text="{Binding Descriptio}"
+                                               TextTrimming="WordEllipsis"
+                                               TextWrapping="Wrap" />
+
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

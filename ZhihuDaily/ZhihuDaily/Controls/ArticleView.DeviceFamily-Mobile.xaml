@@ -1,0 +1,436 @@
+﻿<UserControl x:Class="ZhihuDaily.Controls.ArticleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:actions="using:ZhihuDaily.Actions"
+             xmlns:controls="using:Shagu.Utils.Controls"
+             xmlns:controls1="using:Shagu.Controls"
+             xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+             xmlns:local="using:ZhihuDaily.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:micro="using:Caliburn.Micro"
+             xmlns:util="using:ZhihuDaily.Util"
+             x:Name="_this"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+
+
+    <UserControl.Resources>
+        <util:ArticleParagraphTemplateSelector x:Key="ArticleParagraphTemplateSelector">
+
+            <util:ArticleParagraphTemplateSelector.CommentTitleTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Width="3"
+                                   Margin="8,3"
+                                   Fill="{ThemeResource MainAccessBrush}" />
+                        <TextBlock Grid.Column="1"
+                                   FontSize="20"
+                                   Foreground="{ThemeResource TextColorBrush}"
+                                   Text="{Binding Content}" />
+
+                    </Grid>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.CommentTitleTemplate>
+
+            <util:ArticleParagraphTemplateSelector.AdTemplate>
+                <DataTemplate>
+                    <local:AdControl MsAdId="252633" />
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.AdTemplate>
+
+            <util:ArticleParagraphTemplateSelector.CommentTemplate>
+                <DataTemplate>
+                    <Grid Margin="8,12" DataContext="{Binding}">
+
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <actions:OpenFlyoutAction />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="ReplyComment_OnClick"
+                                                Text="回复评论"
+                                                Visibility="{Binding TagValue,
+                                                                     Converter={StaticResource ZhihuDailyConverter},
+                                                                     ConverterParameter='comment_reply_visible'}" />
+                                <MenuFlyoutItem Click="ReportComment_OnClick"
+                                                Text="举报评论"
+                                                Visibility="{Binding TagValue,
+                                                                     Converter={StaticResource ZhihuDailyConverter},
+                                                                     ConverterParameter='comment_report_visible'}" />
+                                <MenuFlyoutItem Click="DeleteComment_OnClick"
+                                                Text="删除评论"
+                                                Visibility="{Binding TagValue,
+                                                                     Converter={StaticResource ZhihuDailyConverter},
+                                                                     ConverterParameter='comment_delete_visible'}" />
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <controls1:RoundImage Grid.RowSpan="2"
+                                              Width="50"
+                                              Height="50"
+                                              Margin="0,8,12,8"
+                                              VerticalAlignment="Top"
+                                              BorderBrush="Gray"
+                                              DefaultImageUri="/Assets/Images/User/user_avatar_default.jpg"
+                                              LoadNew="True"
+                                              Source="{Binding TagValue.Avatar}"
+                                              Stretch="UniformToFill"
+                                              StrokeThickness="3" />
+
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="1"
+                                   Margin="0,5"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   Foreground="{ThemeResource TextColorBrush}"
+                                   Text="{Binding TagValue.Author}" />
+
+                        <local:TemplateToggleButton Grid.Row="0"
+                                                    Grid.Column="2"
+                                                    Margin="0"
+                                                    IsChecked="{Binding TagValue.Voted}"
+                                                    IsManual="True"
+                                                    Style="{StaticResource ClearToggleButtonStyle}">
+
+                            <local:TemplateToggleButton.CheckedContent>
+                                <StackPanel Orientation="Horizontal">
+                                    <BitmapIcon Width="20"
+                                                Height="20"
+                                                Foreground="#FFED7161"
+                                                UriSource="/Assets/Images/Icons/comment_like.png" />
+                                    <TextBlock Margin="8,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="20"
+                                               Foreground="{ThemeResource TextLowColorBrush}"
+                                               Text="{Binding TagValue.Likes}" />
+                                </StackPanel>
+
+                            </local:TemplateToggleButton.CheckedContent>
+                            <local:TemplateToggleButton.UncheckedContent>
+                                <StackPanel Orientation="Horizontal">
+                                    <BitmapIcon Width="20"
+                                                Height="20"
+                                                Foreground="{ThemeResource TextLowColorBrush}"
+                                                UriSource="/Assets/Images/Icons/comment_unlike.png" />
+                                    <TextBlock Margin="8,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="20"
+                                               Foreground="{ThemeResource TextLowColorBrush}"
+                                               Text="{Binding TagValue.Likes}" />
+                                </StackPanel>
+                            </local:TemplateToggleButton.UncheckedContent>
+
+
+                        </local:TemplateToggleButton>
+
+
+
+                        <StackPanel Grid.Row="1"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2">
+                            <TextBlock Margin="0,5"
+                                       FontSize="18"
+                                       Foreground="{ThemeResource TextSubColorBrush}"
+                                       IsTextSelectionEnabled="True"
+                                       Text="{Binding TagValue.Content}"
+                                       TextWrapping="Wrap" />
+
+                            <Border Margin="0,5"
+                                    Background="#3666"
+                                    CornerRadius="3"
+                                    Visibility="{Binding TagValue.ReplyTo,
+                                                         Converter={StaticResource VisibilityConverter},
+                                                         ConverterParameter='nullreverse'}">
+                                <TextBlock Margin="8"
+                                           FontSize="18"
+                                           Foreground="{ThemeResource TextSubColorBrush}"
+                                           IsTextSelectionEnabled="True"
+                                           Text="{Binding TagValue.ReplyTo.Content}"
+                                           TextWrapping="Wrap" />
+                            </Border>
+
+                            <TextBlock Margin="0,5"
+                                       Foreground="{ThemeResource TextLowColorBrush}"
+                                       Text="{Binding TagValue.Time,
+                                                      Converter={StaticResource DateConverter}}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.CommentTemplate>
+
+            <util:ArticleParagraphTemplateSelector.NoLongCommentTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="12"
+                               Foreground="{ThemeResource TextSubColorBrush}"
+                               Text="暂时没有长评论哦 :)"
+                               TextAlignment="Center" />
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.NoLongCommentTemplate>
+
+
+            <util:ArticleParagraphTemplateSelector.AvatarTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,8"
+                                DataContext="{Binding TagValue}"
+                                Orientation="Horizontal">
+                        <controls:CacheableImage Width="35"
+                                                 Height="35"
+                                                 Margin="5,0"
+                                                 ImageUrl="{Binding Avatar}" />
+
+                        <TextBlock Margin="5,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   Foreground="{ThemeResource TextColorBrush}"
+                                   Text="{Binding Name}" />
+
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="18"
+                                   Foreground="{ThemeResource TextSubColorBrush}"
+                                   Text="{Binding SubName}"
+                                   TextTrimming="WordEllipsis" />
+                    </StackPanel>
+
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.AvatarTemplate>
+
+            <util:ArticleParagraphTemplateSelector.TextTemplate>
+                <DataTemplate>
+                    <RichTextBlock FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                      Path=ArticleFontSize}"
+                                   Foreground="{ThemeResource TextSubColorBrush}"
+                                   LineHeight="{Binding Source={StaticResource GlobalInfoManager}, Path=ArticleLineHeight}"
+                                   Opacity="0.8">
+                        <Paragraph>
+                            <Run Text="{Binding Content}" />
+                        </Paragraph>
+                    </RichTextBlock>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.TextTemplate>
+
+            <util:ArticleParagraphTemplateSelector.StrongTextTemplate>
+                <DataTemplate>
+                    <RichTextBlock FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                      Path=ArticleFontSize}"
+                                   Foreground="{ThemeResource TextSubColorBrush}"
+                                   LineHeight="{Binding Source={StaticResource GlobalInfoManager}, Path=ArticleLineHeight}"
+                                   Opacity="0.8">
+                        <Paragraph>
+                            <Bold>
+                                <Run Text="{Binding Content}" />
+                            </Bold>
+
+                        </Paragraph>
+                    </RichTextBlock>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.StrongTextTemplate>
+
+            <util:ArticleParagraphTemplateSelector.LiangpingLinkTemplate>
+                <DataTemplate>
+                    <Button Margin="5"
+                            Foreground="CornflowerBlue"
+                            Style="{StaticResource ClearButtonStyle}"
+                            Tag="{Binding Value}"
+                            micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                            micro:Message.Attach="[Click] = [Nav2LinkUrl($dataContext)]">
+                        <Border Background="#FF8DC84A" CornerRadius="8">
+                            <TextBlock Margin="8,5"
+                                       FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                          Path=ArticleFontSize}"
+                                       Foreground="White"
+                                       Opacity="0.8"
+                                       Text="{Binding Content}" />
+                        </Border>
+                    </Button>
+
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.LiangpingLinkTemplate>
+            <util:ArticleParagraphTemplateSelector.HrLineTemplate>
+                <DataTemplate>
+                    <Rectangle Height="1"
+                               Margin="5"
+                               HorizontalAlignment="Stretch"
+                               Fill="{ThemeResource TextSubColorBrush}"
+                               Opacity="0.5" />
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.HrLineTemplate>
+            <util:ArticleParagraphTemplateSelector.ImageTemplate>
+                <DataTemplate>
+                    <local:ClickableCacheableImage MaxWidth="850"
+                                                   Margin="0,5"
+                                                   DefaultImageUri="/Assets/Images/default_image.png"
+                                                   ImageUrl="{Binding Content}"
+                                                   IsShowImageViewer="True"
+                                                   Stretch="Uniform" />
+
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.ImageTemplate>
+            <util:ArticleParagraphTemplateSelector.LinkTemplate>
+                <DataTemplate>
+                    <Button Margin="5"
+                            Foreground="CornflowerBlue"
+                            Style="{StaticResource ClearButtonStyle}"
+                            Tag="{Binding Value}"
+                            micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                            micro:Message.Attach="[Click] = [Nav2LinkUrl($dataContext)]">
+                        <TextBlock FontSize="{Binding Source={StaticResource GlobalInfoManager}, Path=ArticleFontSize}" Opacity="0.8">
+                            <Underline>
+                                <Run Text="{Binding Content}" />
+                            </Underline>
+                        </TextBlock>
+
+                    </Button>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.LinkTemplate>
+
+
+            <util:ArticleParagraphTemplateSelector.RichTextTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding RichTextBlock}"
+                                    FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                       Path=ArticleFontSize}"
+                                    Foreground="{ThemeResource TextSubColorBrush}"
+                                    Opacity="0.8" />
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.RichTextTemplate>
+
+            <util:ArticleParagraphTemplateSelector.BlockquoteTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle Width="3"
+                                   Margin="8,0"
+                                   Fill="{ThemeResource MainAccessBrush}" />
+
+                        <ContentControl Grid.Column="1"
+                                        Content="{Binding RichTextBlock}"
+                                        FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                           Path=ArticleFontSize}"
+                                        Foreground="{ThemeResource TextSubColorBrush}"
+                                        Opacity="0.8" />
+                    </Grid>
+
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.BlockquoteTemplate>
+
+            <util:ArticleParagraphTemplateSelector.H1Template>
+                <DataTemplate>
+                    <RichTextBlock Margin="0,8,0,0"
+                                   FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                      Path=ArticleFontSize}"
+                                   Foreground="{ThemeResource TextColorBrush}"
+                                  LineHeight="{Binding Source={StaticResource GlobalInfoManager}, Path=ArticleLineHeight}"
+                                   Opacity="0.8">
+                        <Paragraph>
+                            <Bold>
+                                <Run Text="{Binding Content}" />
+                            </Bold>
+                        </Paragraph>
+                    </RichTextBlock>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.H1Template>
+            <util:ArticleParagraphTemplateSelector.PreTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#33666666" BorderThickness="1">
+                        <RichTextBlock Margin="12"
+                                       FontSize="{Binding Source={StaticResource GlobalInfoManager},
+                                                          Path=ArticleFontSize}"
+                                       Foreground="{ThemeResource TextSubColorBrush}"
+                                       LineHeight="{Binding Source={StaticResource GlobalInfoManager}, Path=ArticleLineHeight}"
+                                       Opacity="0.6">
+                            <Paragraph>
+                                <Run Text="{Binding Content}" />
+                            </Paragraph>
+                        </RichTextBlock>
+                    </Border>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.PreTemplate>
+
+            <util:ArticleParagraphTemplateSelector.VideoTemplate>
+                <DataTemplate>
+                    <Button Click="VideoBtn_OnClick" Style="{StaticResource ClearButtonStyle}">
+                        <Grid>
+                            <controls:CacheableImage Margin="0,5"
+                                                     DefaultImageUri="/Assets/Images/default_image.png"
+                                                     ImageUrl="{Binding SubValue}"
+                                                     IsNightMode="{Binding Source={StaticResource GlobalInfoManager},
+                                                                           Path=IsNightMode}"
+                                                     Stretch="Uniform" />
+
+                            <!--                            <Border Background="#33000000">-->
+                            <!--  <Image Width="80"  -->
+                            <!--  Height="80"  -->
+                            <!--  Source="/Assets/Images/Icons/icon_play.png" />  -->
+                            <!--                            </Border>-->
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.VideoTemplate>
+
+            <util:ArticleParagraphTemplateSelector.AuthorTextTemplate>
+                <DataTemplate>
+                    <ContentControl Margin="0,5"
+                                    Content="{Binding RichTextBlock}"
+                                    FontSize="14"
+                                    Foreground="{ThemeResource TextLowColorBrush}"
+                                    Opacity="0.4" />
+
+                </DataTemplate>
+            </util:ArticleParagraphTemplateSelector.AuthorTextTemplate>
+            <util:ArticleParagraphTemplateSelector.EmptyLineTemplate>
+                <DataTemplate />
+            </util:ArticleParagraphTemplateSelector.EmptyLineTemplate>
+        </util:ArticleParagraphTemplateSelector>
+    </UserControl.Resources>
+
+    <Grid>
+
+
+        <ListView DataContext="{Binding ElementName=_this}"
+                  x:Name="listView"
+              ShowsScrollingPlaceholders="False"
+                  Footer="{Binding Footer}"
+                  FooterTemplate="{Binding FooterTemplate}"
+                  Header="{Binding Header}"
+                  HeaderTemplate="{Binding HeaderTemplate}"
+                  ItemTemplateSelector="{StaticResource ArticleParagraphTemplateSelector}"
+                  ItemsSource="{Binding Paragraphs}">
+
+            <ListView.ItemContainerStyle>
+                <Style BasedOn="{StaticResource CommonListViewItemStyle}" TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="12,0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+
+
+
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,87 @@
+﻿<Page
+    x:Class="ZhihuDaily.Views.NewCollectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZhihuDaily.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:ZhihuDaily.ViewModels"
+    xmlns:micro="using:Caliburn.Micro"
+    xmlns:controls="using:ZhihuDaily.Controls"
+    NavigationCacheMode="Enabled"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:NewCollectionViewModel,
+                                       IsDesignTimeCreatable=True}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainAccessBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid  Background="{ThemeResource MainAccessBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Height="48">
+                <!--            <ToggleButton         VerticalContentAlignment="Center"-->
+                <!--                                  Content="&#xE700;"-->
+                <!--                                  Foreground="{ThemeResource MainIconForeground}"-->
+                <!--                                  IsChecked="False"-->
+                <!--                                  Style="{StaticResource IconToggleButtonStyle}" />-->
+                <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Margin="60,0,0,0"
+                               Style="{StaticResource AppTitleTextBlockStyle}"
+                                >
+                    <Run Text="收藏"/>
+                    <Run Text="{Binding CountMessage}"/>
+                </TextBlock>
+            </StackPanel>
+
+<!--            <AppBarButton Grid.Column="1" Icon="Refresh" Height="48" VerticalAlignment="Center" RequestedTheme="Dark"-->
+<!--                          micro:Message.Attach="[Click] = [RequestItems]"/>-->
+        </Grid>
+
+
+        <ListView Grid.Row="1" IsItemClickEnabled="True"
+                  Header="{Binding Articles}"
+              ShowsScrollingPlaceholders="False"
+                  Background="{ThemeResource MainBackgroundBrush}"
+                  HeaderTemplate="{StaticResource ListProcressHeaderTemplate}"
+                  ItemContainerStyle="{StaticResource CommonListViewItemStyle}"
+                  ItemTemplate="{StaticResource StoryInfoTemplate}"
+                  ItemsSource="{Binding Articles}"
+                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                  micro:Message.Attach="[ItemClick] = [ItemClick($eventArgs)]">
+
+            <ListView.Footer>
+                <Grid>
+                    <controls:LoadMoreControl Margin="12,0"
+                                              DataContext="{Binding Articles}"
+                                              micro:Message.Attach="[LoadMore]=[LoadItems]" />
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+
+        <Grid Grid.Row="2">
+            <CommandBar ClosedDisplayMode="Compact"
+                        Background="{ThemeResource MainAccessBrush}"
+                        CommandBarOverflowPresenterStyle="{StaticResource CommandBarOverflowPresenterStyle}"
+                        Foreground="White">
+                <AppBarButton Label="刷新" RequestedTheme="Dark" Icon="Refresh" micro:Message.Attach="[Click] = [RequestItems]"/>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="本地收藏（原收藏）" RequestedTheme="Dark"  micro:Message.Attach="[Click] = [Nav2OldFaviroteView]"
+                          Icon="Favorite"/>
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+        </Grid>
+    </Grid>
+    
+    
+</Page>

@@ -1,0 +1,305 @@
+﻿<Page x:Class="ZhihuDaily.Views.MainShellView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:Shagu.Controls"
+      xmlns:converters1="using:Shagu.Controls.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:extends1="using:Shagu.Utils.Extends"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:trigger="using:Shagu.Utils.Trigger"
+      xmlns:util="using:ZhihuDaily.Util"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      xmlns:controls1="using:ZhihuDaily.Controls"
+      NavigationCacheMode="Required"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:MainShellViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters1:NullableBooleanToBooleanConverter x:Key="NullableBooleanToBooleanConverter" />
+    </Page.Resources>
+
+
+    <controls:SwipeableSplitView x:Name="mainSplitView"
+                                 CompactPaneLength="0"
+                                 DisplayMode="CompactOverlay"
+                                 Foreground="#FFDA5D5D"
+                                 IsSwipeablePaneOpen="{x:Bind hamburgButton.IsChecked, Mode=TwoWay, Converter={StaticResource NullableBooleanToBooleanConverter}}"
+                                 IsSwipeabled="False"
+                                 OpenPaneLength="250"
+                                 PaneBackground="{ThemeResource MainAccessBrush}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup CurrentStateChanged="VisualStateGroup_OnCurrentStateChanged">
+                <VisualState x:Name="Show123">
+                    <VisualState.StateTriggers>
+                        <util:DeviceAdaptiveTrigger AdaptiveType="Show123" MainGrid="{Binding ElementName=LayoutRoot}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="centerPanel.Visibility" Value="Visible" />
+                        <Setter Target="rightPanel.Visibility" Value="Visible" />
+                        <!--                        <Setter Target="hamburgButton.Visibility" Value="Collapsed" />-->
+
+
+                        <Setter Target="leftPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="leftPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.Column)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="rightPanel.(Grid.Column)" Value="2" />
+                        <Setter Target="rightPanel.(Grid.ColumnSpan)" Value="1" />
+
+<!--                        <Setter Target="mainSplitView.DisplayMode" Value="CompactOverlay" />-->
+<!--                        <Setter Target="mainSplitView.IsSwipeablePaneOpen" Value="True" />-->
+
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Show12">
+                    <VisualState.StateTriggers>
+                        <util:DeviceAdaptiveTrigger AdaptiveType="Show12" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="centerPanel.Visibility" Value="Visible" />
+                        <Setter Target="rightPanel.Visibility" Value="Collapsed" />
+                        <!--                        <Setter Target="hamburgButton.Visibility" Value="Collapsed" />-->
+
+                        <Setter Target="leftPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="leftPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.Column)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="rightPanel.(Grid.Column)" Value="2" />
+                        <Setter Target="rightPanel.(Grid.ColumnSpan)" Value="1" />
+
+<!--                        <Setter Target="mainSplitView.DisplayMode" Value="CompactInline" />-->
+<!--                        <Setter Target="mainSplitView.IsSwipeablePaneOpen" Value="True" />-->
+
+                    </VisualState.Setters>
+                </VisualState>
+
+
+                <VisualState x:Name="Show2">
+                    <VisualState.StateTriggers>
+                        <util:DeviceAdaptiveTrigger AdaptiveType="Show2" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="centerPanel.Visibility" Value="Visible" />
+                        <Setter Target="rightPanel.Visibility" Value="Collapsed" />
+                        <!--                        <Setter Target="hamburgButton.Visibility" Value="Visible" />-->
+
+                        <Setter Target="leftPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="leftPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="centerPanel.(Grid.ColumnSpan)" Value="3" />
+                        <Setter Target="rightPanel.(Grid.Column)" Value="2" />
+                        <Setter Target="rightPanel.(Grid.ColumnSpan)" Value="1" />
+
+<!--                        <Setter Target="mainSplitView.DisplayMode" Value="Overlay" />-->
+<!--                        <Setter Target="mainSplitView.IsSwipeablePaneOpen" Value="False" />-->
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Show3">
+                    <VisualState.StateTriggers>
+                        <util:DeviceAdaptiveTrigger AdaptiveType="Show3" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="centerPanel.Visibility" Value="Collapsed" />
+                        <Setter Target="rightPanel.Visibility" Value="Visible" />
+                        <!--                        <Setter Target="hamburgButton.Visibility" Value="Visible" />-->
+
+                        <Setter Target="leftPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="leftPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.Column)" Value="1" />
+                        <Setter Target="centerPanel.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="rightPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="rightPanel.(Grid.ColumnSpan)" Value="3" />
+
+<!--                        <Setter Target="mainSplitView.DisplayMode" Value="Overlay" />-->
+<!--                        <Setter Target="mainSplitView.IsSwipeablePaneOpen" Value="False" />-->
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+         
+        </VisualStateManager.VisualStateGroups>
+
+        <SplitView.Pane>
+            <Grid x:Name="leftPanel">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <controls1:AvatarControl Width="60"
+                                             Height="60"
+                                             Margin="22,22,12,12"
+                                             UserInfo="{Binding Source={StaticResource GlobalInfoManager},
+                                                                Path=UserInfo}"
+                                             AvatarClick="AvatarControl_OnAvatarClick"
+                                             micro:Message.Attach="[AvatarClick] = [AvatarClick]" />
+
+                    <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource GlobalInfoManager}, Path=LoginResult.Name}"
+                               TextTrimming="WordEllipsis" FontSize="18" VerticalAlignment="Center" Margin="12,22,12,12"
+                               Foreground="{ThemeResource MainIconForeground}"></TextBlock>
+
+
+                </Grid>
+
+                <ListView x:Name="mainListView"
+                          Grid.Row="1"
+                          Margin="0,0,0,25"
+                          VerticalAlignment="Top"
+                          IsItemClickEnabled="True"
+                          ItemClick="mainListView_OnItemClick"
+                          ItemsSource="{Binding MainTitles}"
+                          SelectedIndex="{Binding SelectedIndex,
+                                                  Mode=TwoWay}"
+                          micro:Message.Attach="[ItemClick] = [TitleClick($eventArgs)]">
+                    <ListView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource MainListViewItemStyle}" TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,8" Orientation="Horizontal">
+                                <TextBlock Margin="12,5"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           Foreground="{ThemeResource MainIconForeground}"
+                                           Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid Grid.Row="2" Margin="0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Click="ItemButton_OnClick"
+                            Style="{StaticResource ClearButtonStyle}"
+                            micro:Message.Attach="[Click] = [Nav2Favorite]">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <SymbolIcon Foreground="{ThemeResource MainIconForeground}" Symbol="Favorite" />
+                            <TextBlock Margin="8"
+                                       FontSize="18"
+                                       Foreground="{ThemeResource MainIconForeground}"
+                                       Text="收藏" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Grid.Column="1"
+                            Click="ItemButton_OnClick"
+                            Style="{StaticResource ClearButtonStyle}"
+                            micro:Message.Attach="[Click] = [Nav2Setting]">
+
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <SymbolIcon Foreground="{ThemeResource MainIconForeground}" Symbol="Setting" />
+                            <TextBlock Margin="8"
+                                       FontSize="18"
+                                       Foreground="{ThemeResource MainIconForeground}"
+                                       Text="设置" />
+                        </StackPanel>
+                    </Button>
+
+
+                </Grid>
+            </Grid>
+        </SplitView.Pane>
+
+        <Grid x:Name="LayoutRoot" Background="{ThemeResource MainAccessBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MaxWidth="450" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="centerPanel"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+
+                <extends1:CacheFrame Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     CacheSize="4"
+                                     CachedAll="True"
+                                     DataContext="{x:Null}"
+                                     micro:Message.Attach="[Loaded] = [SetupCenterFrame($source)]" />
+
+                <Grid Grid.Row="0"
+                      Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="hamburgButton"
+                                      VerticalContentAlignment="Center"
+                                      Content="&#xE700;"
+                                      Foreground="{ThemeResource MainIconForeground}"
+                                      IsChecked="False"
+                                      Style="{StaticResource IconToggleButtonStyle}" />
+<!--                        <TextBlock Foreground="{ThemeResource MainIconForeground}"-->
+<!--                                   Style="{StaticResource AppTitleTextBlockStyle}"-->
+<!--                                   Text="{Binding ElementName=mainListView,-->
+<!--                                                  Path=SelectedItem.Name}" />-->
+                    </StackPanel>
+
+                    <!--  <Button Grid.Column="1" Style="{StaticResource ClearButtonStyle}" VerticalAlignment="Center"  -->
+                    <!--  Width="48" Height="48"  -->
+                    <!--  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"  -->
+                    <!--  micro:Message.Attach="[Click] = [Nav2SearchView]">  -->
+                    <!--                        <SymbolIcon Symbol="Find" Foreground="{ThemeResource MainIconForeground}"/>-->
+                    <!--                    </Button>-->
+                </Grid>
+
+            </Grid>
+
+
+
+            <Grid x:Name="rightPanel"
+                  Grid.Column="2"
+                  Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="centerSplitBorder"
+                        Width="1.5"
+                        Background="{ThemeResource MainAccessBrush}" />
+
+                <extends1:CacheFrame Grid.Column="1"
+                                     DataContext="{x:Null}"
+                                     micro:Message.Attach="[Loaded] = [SetupRightFrame($source)]" />
+            </Grid>
+
+
+
+
+        </Grid>
+
+    </controls:SwipeableSplitView>
+</Page>

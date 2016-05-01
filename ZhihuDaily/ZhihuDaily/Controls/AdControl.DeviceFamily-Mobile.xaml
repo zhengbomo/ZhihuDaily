@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="ZhihuDaily.Controls.AdControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:Microsoft.Advertising.WinRT.UI"
+             HorizontalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch"
+             d:DesignHeight="80"
+             d:DesignWidth="480"
+             mc:Ignorable="d">
+
+    <Grid x:Name="layoutRoot">
+<!--        <ui:AdControl Width="480"-->
+<!--                      Loaded="AdControl_Loaded"-->
+<!--                      ErrorOccurred="MsAdControl_OnErrorOccurred"-->
+<!--                      OnPointerDown="MsAdControl_OnPointerDown"-->
+<!--                      AdRefreshed="MsAdControl_AdRefreshed"-->
+<!--                      Height="80"-->
+<!--                      HorizontalAlignment="Left"-->
+<!--                      VerticalAlignment="Top"-->
+<!--                      AdUnitId="252633"-->
+<!--                      ApplicationId="11dbc1bf-14ad-4b35-9266-f3fc025e2697" />-->
+    </Grid>
+</UserControl>

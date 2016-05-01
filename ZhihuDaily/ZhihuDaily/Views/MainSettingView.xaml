@@ -1,0 +1,233 @@
+﻿<Page x:Class="ZhihuDaily.Views.MainSettingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:trigger="using:Shagu.Utils.Trigger"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      NavigationCacheMode="Disabled"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:MainSettingViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="ToggleSwitchHeaderTemplate">
+            <TextBlock Foreground="{ThemeResource MainTextColorBrush}" Text="{Binding}" />
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource MainBackgroundBrush}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <trigger:DeviceFamilyTrigger DeviceFamily="Mobile" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="noPictureToggle.Visibility" Value="Visible" />
+                        <Setter Target="articleFullScreenToggle.Visibility" Value="Collapsed" />
+
+                        <Setter Target="mainListView.Margin" Value="8" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <trigger:DeviceFamilyTrigger DeviceFamily="Desktop" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="noPictureToggle.Visibility" Value="Collapsed" />
+                        <Setter Target="articleFullScreenToggle.Visibility" Value="Visible" />
+                        <Setter Target="mainListView.Margin" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Height="48"
+                    Background="{ThemeResource MainAccessBrush}"
+                    Orientation="Horizontal">
+            <TextBlock Margin="60,0,0,0"
+                       Foreground="{ThemeResource MainIconForeground}"
+                       Style="{StaticResource AppTitleTextBlockStyle}"
+                       Text="设置" />
+        </StackPanel>
+
+       
+
+        <Grid Grid.Row="1" >
+            <ListView x:Name="mainListView"
+              ShowsScrollingPlaceholders="False"
+                      >
+                <ListView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource CommonListViewItemStyle}" TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="8,0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ToggleSwitch x:Name="articleFullScreenToggle"
+                          Margin="8"
+                          HorizontalAlignment="Stretch"
+                          Foreground="{ThemeResource MainTextColorBrush}"
+                          Header="文章全屏"
+                          HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"
+                          IsOn="{Binding Source={StaticResource GlobalInfoManager},
+                                         Path=ArticleFullScreen,
+                                         Mode=TwoWay}"
+                          OffContent="关"
+                          OnContent="开" />
+
+                <ToggleSwitch x:Name="noPictureToggle"
+                          Margin="8"
+                          HorizontalAlignment="Stretch"
+                          Foreground="{ThemeResource MainTextColorBrush}"
+                          Header="无图模式"
+                          HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"
+                          IsEnabled="True"
+                          IsOn="{Binding Source={StaticResource GlobalInfoManager},
+                                         Path=NoPicture,
+                                         Mode=TwoWay}"
+                          OffContent="关"
+                          OnContent="开" />
+
+
+
+
+                <ToggleSwitch Margin="8"
+                          HorizontalAlignment="Stretch"
+                          Foreground="{ThemeResource MainTextColorBrush}"
+                          Header="夜间模式"
+                          HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"
+                          IsEnabled="True"
+                          IsOn="{Binding Source={StaticResource GlobalInfoManager},
+                                         Path=IsNightMode,
+                                         Mode=TwoWay}"
+                          OffContent="关"
+                          OnContent="开" />
+
+
+
+                <Grid Margin="8,12"
+                  Background="Transparent"
+                  micro:Message.Attach="[Tapped]=[ClearCache]">
+                    <StackPanel>
+                        <TextBlock Foreground="{ThemeResource MainTextColorBrush}" Text="清理数据缓存" />
+                        <TextBlock FontSize="16"
+                               Foreground="{ThemeResource TextSubColorBrush}"
+                               Text="{Binding CacheSize}" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="8,12"
+                  Background="Transparent"
+                  micro:Message.Attach="[Tapped]=[ClearImageCache]">
+                    <StackPanel>
+                        <TextBlock Foreground="{ThemeResource MainTextColorBrush}" Text="清理图片缓存" />
+                        <TextBlock FontSize="16"
+                               Foreground="{ThemeResource TextSubColorBrush}"
+                               Text="{Binding ImageCacheSize}" />
+                    </StackPanel>
+                </Grid>
+
+
+
+                <Grid Margin="8,12"
+                  Background="Transparent"
+                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                  micro:Message.Attach="[Tapped]=[Nav2RecommendAppView]">
+                    <StackPanel>
+                        <TextBlock Foreground="{ThemeResource MainTextColorBrush}" Text="推荐应用" />
+                        <TextBlock FontSize="16"
+                               Foreground="{ThemeResource TextSubColorBrush}"
+                               Text="bomo" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="8,12"
+                  Background="Transparent"
+                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                  micro:Message.Attach="[Tapped]=[Nav2AboutView]">
+                    <StackPanel>
+                        <TextBlock Foreground="{ThemeResource MainTextColorBrush}" Text="关于" />
+                        <TextBlock FontSize="16"
+                               Foreground="{ThemeResource TextSubColorBrush}"
+                               Text="{Binding Source={StaticResource GlobalResources},
+                                              Path=AppName}" />
+                    </StackPanel>
+                </Grid>
+
+
+                <TextBlock Margin="8,8,8,0"
+                       FontSize="16"
+                       Foreground="{ThemeResource ToggleSwitchHeaderForegroundThemeBrush}"
+                       Text="字体大小" />
+
+                <Slider x:Name="articleFontSizeSlider"
+                    Margin="8"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Maximum="40"
+                    Minimum="16"
+                    Value="{Binding Source={StaticResource GlobalInfoManager},
+                                    Path=ArticleFontSize,
+                                    Mode=TwoWay}" />
+
+                <TextBlock Margin="8,8,8,0"
+                       FontSize="16"
+                       Foreground="{ThemeResource ToggleSwitchHeaderForegroundThemeBrush}"
+                       Text="文字行高" />
+
+                <Slider x:Name="articleLineHeightSlider"
+                    Margin="8"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Maximum="100"
+                    Minimum="20"
+                    Value="{Binding Source={StaticResource GlobalInfoManager},
+                                    Path=ArticleLineHeight,
+                                    Mode=TwoWay}" />
+
+
+
+                <TextBlock MaxHeight="300"
+                       Margin="8"
+                       FontSize="{Binding ElementName=articleFontSizeSlider,
+                                          Path=Value}"
+                       Foreground="{ThemeResource TextColorBrush}"
+                       LineHeight="{Binding ElementName=articleLineHeightSlider,
+                                            Path=Value}"
+                       Text="{Binding Text}"
+                       TextTrimming="WordEllipsis"
+                       TextWrapping="Wrap" />
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Background="#CC000000"
+              Visibility="{Binding IsLoading.Value,
+                                   Converter={StaticResource VisibilityConverter},
+                                   ConverterParameter='bool'}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing Width="100"
+                              Height="100"
+                              IsActive="True" />
+                <TextBlock Margin="5"
+                           FontSize="18"
+                           Foreground="{ThemeResource MainTextColorBrush}"
+                           Text="正在清理缓存"
+                           TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+
+
+    </Grid>
+</Page>

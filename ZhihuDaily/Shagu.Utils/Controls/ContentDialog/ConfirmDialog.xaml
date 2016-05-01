@@ -1,0 +1,17 @@
+﻿<ContentDialog x:Class="Shagu.Utils.Controls.ContentDialog.ConfirmDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               Title="TITLE"
+               PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+               PrimaryButtonText="确定"
+               SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+               SecondaryButtonText="取消"
+               d:DesignWidth="520"
+               x:Name="_this"
+               mc:Ignorable="d">
+
+    <TextBlock x:Name="textBlock" TextWrapping="Wrap"
+               Text="{Binding ElementName=_this, Path=Text}"/>
+</ContentDialog>

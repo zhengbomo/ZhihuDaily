@@ -1,0 +1,126 @@
+﻿<Page
+    x:Class="ZhihuDaily.Views.CategoryDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    NavigationCacheMode="Enabled"
+    xmlns:controls1="using:Shagu.Utils.Controls"
+    xmlns:controls2="using:ZhihuDaily.Controls"
+    xmlns:viewModels="using:ZhihuDaily.ViewModels"
+    RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:CategoryDetailViewModel,
+                                       IsDesignTimeCreatable=True}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid  Background="{ThemeResource MainAccessBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Height="48">
+                <!--            <ToggleButton         VerticalContentAlignment="Center"-->
+                <!--                                  Content="&#xE700;"-->
+                <!--                                  Foreground="{ThemeResource MainIconForeground}"-->
+                <!--                                  IsChecked="False"-->
+                <!--                                  Style="{StaticResource IconToggleButtonStyle}" />-->
+                <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Margin="60,0,0,0"
+                               Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="{Binding Title}" />
+            </StackPanel>
+
+            <AppBarButton Grid.Column="1" Icon="Refresh" Height="48" VerticalAlignment="Center" RequestedTheme="Dark"
+                          micro:Message.Attach="[Click] = [RequestItems]"/>
+        </Grid>
+
+        <ListView Grid.Row="1" Background="{ThemeResource MainBackgroundBrush}"
+              ShowsScrollingPlaceholders="False"
+                  IsItemClickEnabled="True"
+                  ItemContainerStyle="{StaticResource CommonListViewItemStyle}"
+                  ItemsSource="{Binding Stories}"
+                  ItemTemplate="{StaticResource StoryInfoTemplate}"
+                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                  micro:Message.Attach="[ItemClick] = [ItemClick($eventArgs)]">
+
+            <ListView.Header>
+                <StackPanel>
+                    <Grid>
+                        <controls1:CacheableImage DefaultImageUri="/Assets/Images/default_category_coverImage.jpg"
+                                              VerticalAlignment="{Binding CategoryDetail.Image, Converter={StaticResource VisibilityConverter}, ConverterParameter='nullreverse'}"
+                                              ImageUrl="{Binding CategoryDetail.Image}"
+                                              Stretch="UniformToFill" />
+
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#9000" Offset="1"/>
+                                    <GradientStop Color="Transparent" Offset="0"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+
+                        <TextBlock Margin="17,0,17,18"
+                                                   VerticalAlignment="Bottom"
+                                                   FontSize="18"
+                                                   Foreground="White"
+                                                   Text="{Binding CategoryDetail.Description}"
+                                                   TextWrapping="Wrap" />
+                    </Grid>
+                    
+                    
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding CategoryDetail.Editors, Converter={StaticResource VisibilityConverter}, ConverterParameter='nullreverse'}"
+                                Margin="0,12,0,0">
+                        <TextBlock Text="主编" Foreground="{ThemeResource  TextSubColorBrush}" FontSize="18" VerticalAlignment="Center" 
+                                   Margin="12,8"/>
+                        
+                        <ItemsControl ItemsSource="{Binding CategoryDetail.Editors}" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls2:AvatarControl UserInfo="{Binding}" 
+                                                             Margin="8"
+                                                             Width="30" Height="30"></controls2:AvatarControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <ContentControl VerticalAlignment="Center"
+                            HorizontalContentAlignment="Stretch"
+                            Content="{Binding Stories}"
+                            ContentTemplate="{StaticResource ListProcressHeaderTemplate}"
+                            IsHitTestVisible="False" />
+                </StackPanel>
+            </ListView.Header>
+
+            
+
+            <ListView.Footer>
+                <Grid>
+                    <controls2:LoadMoreControl Margin="12,0"
+                                               DataContext="{Binding Stories}"
+                                               micro:Message.Attach="[LoadMore]=[LoadItems]" />
+                </Grid>
+            </ListView.Footer>
+
+
+        </ListView>
+
+        
+    </Grid>
+</Page>

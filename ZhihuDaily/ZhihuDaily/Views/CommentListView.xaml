@@ -1,0 +1,86 @@
+﻿<Page x:Class="ZhihuDaily.Views.CommentListView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ZhihuDaily.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:controls="using:Shagu.Utils.Controls"
+      xmlns:controls1="using:ZhihuDaily.Controls"
+      NavigationCacheMode="Enabled"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:CommentListViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainAccessBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Style="{StaticResource AppTitleTextBlockStyle}"
+                       Text="评论" />
+
+            <CommandBar Grid.Column="1"
+                        ClosedDisplayMode="Compact"
+                        Background="{ThemeResource MainAccessBrush}"
+                        CommandBarOverflowPresenterStyle="{StaticResource CommandBarOverflowPresenterStyle}"
+                        Foreground="White"
+                        >
+
+                <AppBarButton Icon="Upload"
+                              Label="返回顶部"
+                              RequestedTheme="Dark"
+                              Click="GoToTop_OnClick"
+                              />
+
+                <AppBarButton Icon="Comment"
+                              Label="写点评"
+                              RequestedTheme="Dark"
+                              micro:Message.Attach="[Click] = [Nav2CommmentView]" />
+
+
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="刷新"
+                                  RequestedTheme="Dark"
+                                  micro:Message.Attach="[Click] = [RequsetItems]" />
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{ThemeResource MainBackgroundBrush}">
+            <controls1:ArticleView 
+                                  x:Name="articleView"
+                                  Header="{Binding Paragraphs}"
+                HeaderTemplate="{StaticResource ListProcressHeaderTemplate}"
+                                  Paragraphs="{Binding Paragraphs}"
+                                  TextBrush="{ThemeResource TextBoxForegroundThemeBrush}"
+                                  micro:Message.Attach="[ReplyComment]=[ReplyComment($eventArgs)];[DeleteComment]=[DeleteComment($eventArgs)];[ ReportComment]=[ReportComment($eventArgs)]">
+                <controls1:ArticleView.Footer>
+                    <Grid>
+                        <controls1:LoadMoreControl Margin="12,0"
+                                                  DataContext="{Binding Paragraphs}"
+                                                  micro:Message.Attach="[LoadMore]=[LoadItems]" />
+                    </Grid>
+
+                </controls1:ArticleView.Footer>
+
+
+            </controls1:ArticleView>
+
+        </Grid>
+
+    </Grid>
+</Page>

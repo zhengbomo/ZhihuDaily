@@ -1,0 +1,120 @@
+﻿<Page x:Class="ZhihuDaily.Views.MainHomeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:Shagu.Controls"
+      xmlns:controls1="using:Shagu.Utils.Controls"
+      xmlns:controls2="using:ZhihuDaily.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:viewModels="using:ZhihuDaily.ViewModels"
+    NavigationCacheMode="Enabled"
+      RequestedTheme="{Binding Source={StaticResource GlobalInfoManager},
+                               Path=Theme}"
+      d:DataContext="{d:DesignInstance viewModels:MainHomeViewModel,
+                                       IsDesignTimeCreatable=True}"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource MainBackgroundBrush}">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Background="{ThemeResource MainAccessBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Height="48" >
+                <TextBlock Foreground="{ThemeResource MainIconForeground}"
+                       Margin="60,0,0,0"
+                               Style="{StaticResource AppTitleTextBlockStyle}"
+                               Text="今日热闻" />
+            </StackPanel>
+
+            <AppBarButton Grid.Column="1" Icon="Refresh" Height="48" VerticalAlignment="Center" RequestedTheme="Dark"
+                          micro:Message.Attach="[Click] = [RequestItems]"/>
+        </Grid>
+
+
+        <ListView Grid.Row="1" Background="{ThemeResource MainBackgroundBrush}"
+              ShowsScrollingPlaceholders="False"
+                  IsItemClickEnabled="True"
+                  ItemContainerStyle="{StaticResource CommonListViewItemStyle}"
+                  ItemsSource="{Binding Articles}"
+                  ItemTemplate="{StaticResource StoryInfoTemplate}"
+                  micro:Action.TargetWithoutContext="{StaticResource NavigationManager}"
+                  micro:Message.Attach="[ItemClick] = [ItemClick($eventArgs)]">
+
+            <ListView.Header>
+                <StackPanel>
+                    <controls:PageDotControl HorizontalAlignment="Center"
+                                             VerticalAlignment="Bottom"
+                                             FilpViewHeight="357"
+                                             FilpViewWidth="750"
+                                             ItemsSource="{Binding Carousels}"
+                                             SelectedIndex="{Binding CarouselSelectedIndex,
+                                                                     Mode=TwoWay}"
+                                             d:DesignHeight="180">
+                        <controls:PageDotControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button DataContext="{Binding}"
+                                        Style="{StaticResource ClearButtonStyle}"
+                                        micro:Message.Attach="[Click] = [CarouselClick($dataContext)]">
+                                    <Grid>
+                                        <controls1:CacheableImage DefaultImageUri="/Assets/Images/default_image.png"
+                                                                  ImageUrl="{Binding Image}"
+                                                                  IsNightMode="{Binding Source={StaticResource GlobalInfoManager},
+                                                                                        Path=IsNightMode}"
+                                                                  LoadNew="True"
+                                                                  Stretch="UniformToFill" />
+
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#9000" Offset="1"/>
+                                                    <GradientStop Color="Transparent" Offset="0"/>
+                                                </LinearGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+
+                                        
+                                        <TextBlock Margin="24,0,24,36"
+                                                   VerticalAlignment="Bottom"
+                                                   FontSize="20"
+                                                   Foreground="White"
+                                                   Text="{Binding Title}"
+                                                   TextWrapping="Wrap" />
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </controls:PageDotControl.ItemTemplate>
+                    </controls:PageDotControl>
+
+                    <ContentControl VerticalAlignment="Center"
+                            HorizontalContentAlignment="Stretch"
+                            Content="{Binding Articles}"
+                            ContentTemplate="{StaticResource ListProcressHeaderTemplate}"
+                            IsHitTestVisible="False" />
+
+                </StackPanel>
+            </ListView.Header>
+
+      
+
+            <ListView.Footer>
+                <Grid>
+                    <controls2:LoadMoreControl Margin="12,0"
+                                               DataContext="{Binding Articles}"
+                                               micro:Message.Attach="[LoadMore]=[LoadItems]" />
+                </Grid>
+            </ListView.Footer>
+
+
+        </ListView>
+    </Grid>
+
+</Page>
